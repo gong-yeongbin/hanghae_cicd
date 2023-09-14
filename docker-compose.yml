@@ -9,12 +9,12 @@ services:
       POSTGRES_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "${DB_PORT}:${DB_PORT}"
-#  api:
-#    container_name: nest-api
-#    build:
-#      context: .
-#      dockerfile: Dockerfiles
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      - db
+  api:
+    container_name: nest-api
+    build:
+      context: .
+      dockerfile: Dockerfiles
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
