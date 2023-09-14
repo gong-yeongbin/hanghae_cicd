@@ -92,7 +92,7 @@ jobs:
           echo "${{ secrets.PROD }}" > .env
           
           docker-compose -f docker-compose.yml build
-          docker ps -a
+          docker images
 #          docker tag postgres:latest $ECR_REGISTRY/$ECR_REPOSITORY:postgres
 #          docker push $ECR_REGISTRY/$ECR_REPOSITORY:postgres
 
