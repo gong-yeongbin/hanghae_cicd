@@ -93,7 +93,8 @@ jobs:
           pwd
           docker-compose -f docker-compose.yml build --no-cache 
           docker tag postgres:latest $ECR_REGISTRY/$ECR_REPOSITORY/postgres:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres
+          docker images
+#          docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres
 
 #          docker tag api:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:api
 #          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:api
