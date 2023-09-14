@@ -82,6 +82,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+        if: runner.os == 'Linux'
+
       - name: Build, tag, and push image to Amazone ECR
         id: build-image
         env:
