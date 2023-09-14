@@ -89,6 +89,13 @@ jobs:
           ECR_REPOSITORY: repository-nestjs
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "${{ secrets.PROD }}" > .env
+          
+          docker-compose build
+          docker tag db:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/db:latest 
+          docker tag api:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/api:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/db:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/api:latest
+#          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+#          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
