@@ -92,10 +92,10 @@ jobs:
           echo "${{ secrets.PROD }}" > .env
           
           docker-compose build
-          docker tag db:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/db:latest 
-          docker tag api:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/api:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/db:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG/api:latest
+          docker tag db:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:db 
+          docker tag api:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:api
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:db
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:api
 #          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 #          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 #          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
