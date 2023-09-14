@@ -59,9 +59,9 @@ jobs:
 
       - name: Create env file
         run: |
-          echo ${{ secrets.PROD }} >> .env
-          cat .env
-#          ${{ secrets.PROD }}
+          touch .env
+          cat << EOF >> .env
+          ${{ secrets.PROD }}
 
       - name: AWS ECR 로그인
         run: |
