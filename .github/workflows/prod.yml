@@ -91,6 +91,7 @@ jobs:
         run: |
           echo "${{ secrets.PROD }}" > .env
           docker-compose -f docker-compose.yml build --no-cache
+          docker images
 #          docker tag postgres:latest $ECR_REGISTRY/$ECR_REPOSITORY/postgres:latest
 #          docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres
 
