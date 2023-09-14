@@ -91,13 +91,9 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           echo "${{ secrets.PROD }}" > .env
-          docker-compose -f docker-compose.yml build --no-cache
-          
-          services=("nest-api") # Docker Compose 파일에 정의된 서비스 이름으로 변경
-          for service in "${services[@]}"; do
-            docker tag $service:latest $ECR_REGISTRY/$ECR_REPOSITORY/$service:latest
-            docker push $ECR_REGISTRY/$ECR_REPOSITORY/$service:latest
-          done
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
 
 
