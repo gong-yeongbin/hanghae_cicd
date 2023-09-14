@@ -4,6 +4,7 @@ on:
     branches: ["main"]
 env:
   NODE_VERSION: 16
+
 jobs:
   build:
     permissions:
@@ -91,8 +92,13 @@ jobs:
         run: |
           echo "${{ secrets.PROD }}" > .env
           docker-compose -f docker-compose.yml build --no-cache
-          docker tag hanghae_cicd_api:latest $ECR_REGISTRY/$ECR_REPOSITORY/hanghae_cicd_api:latest
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY/hanghae_cicd_api:latest
+          
+          services=("db" "api") # Docker Compose 파일에 정의된 서비스 이름으로 변경
+          for service in "${services[@]}"; do
+            docker tag $service:latest $ECR_REGISTRY/$ECR_REPOSITORY/$service:latest
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY/$service:latest
+          done
+
 
 
 #          docker tag api:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG:api
