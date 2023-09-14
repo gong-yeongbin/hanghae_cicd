@@ -1,32 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBurgerDto } from './dto/create-burger.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Burger } from './entities/burger.entity';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class BurgerService {
-  constructor(
-    @InjectRepository(Burger)
-    private burgerRepository: Repository<Burger>,
-  ) {}
-
-  async create(createBurgerDto: CreateBurgerDto) {
-    const burgerEntity: Burger = await this.burgerRepository.save({
-      ...createBurgerDto,
-    });
-    return burgerEntity;
+  private data: { id: number; name: string; price: number }[] = [];
+  create(createBurgerDto: CreateBurgerDto) {
+    this.data.push({ id: this.data.length + 1, ...createBurgerDto });
+    return createBurgerDto;
   }
 
-  async findAll() {
-    return await this.burgerRepository.find();
+  findAll() {
+    return this.data;
   }
 
-  async findOne(id: number) {
-    return await this.burgerRepository.findOne({ where: { id } });
+  findOne(id: number) {
+    return this.data.find((item) => item.id === id);
   }
 
-  async remove(id: number) {
-    return await this.burgerRepository.delete({ id });
+  remove(id: number) {
+    const index: number = this.data.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      this.data.splice(index, 1);
+    }
   }
 }

@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BurgerService } from './burger.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
+import { Burger } from './entities/burger.entity';
 
 describe('BurgerService', () => {
   let service: BurgerService;
