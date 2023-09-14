@@ -57,12 +57,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setting .env
+      - name: Create env file
         run: |
           touch .env
-          echo ${{ secret.PROD }} >> .env
-          cat .env
-            
+          cat << EOF >> .env
+          ${{ secrets.PROD }}
 
       - name: AWS ECR 로그인
         run: |
