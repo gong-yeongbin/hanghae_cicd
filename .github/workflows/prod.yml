@@ -91,7 +91,7 @@ jobs:
         run: |
           echo "${{ secrets.PROD }}" > .env
           docker-compose -f docker-compose.yml build --no-cache
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY/hanghae_cicd_api:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:hanghae_cicd_api:latest
 #          docker tag hanghae_cicd_api:latest $ECR_REGISTRY/$ECR_REPOSITORY/hanghae_cicd_api:latest
 #          docker push $ECR_REGISTRY/$ECR_REPOSITORY/hanghae_cicd_api:latest
 
