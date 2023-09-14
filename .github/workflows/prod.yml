@@ -82,12 +82,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-        if: runner.os == 'Linux'
-
       - name: Build, tag, and push image to Amazone ECR
         id: build-image
         env:
@@ -96,8 +90,8 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           echo "${{ secrets.PROD }}" > .env
-          
-          docker-compose build --no-cache  
+          cd ./hanghae_cicd
+          docker-compose -f docker-compose.yml build --no-cache 
           docker tag postgres:latest $ECR_REGISTRY/$ECR_REPOSITORY/postgres:latest
           docker push $ECR_REGISTRY/$ECR_REPOSITORY/postgres
 
